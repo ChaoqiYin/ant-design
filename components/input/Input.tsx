@@ -52,6 +52,7 @@ export interface InputProps
   suffix?: React.ReactNode;
   allowClear?: boolean;
   bordered?: boolean;
+  htmlSize?: number;
 }
 
 export function fixControlledValue<T>(value: T) {
@@ -275,7 +276,14 @@ class Input extends React.Component<InputProps, InputState> {
     bordered: boolean,
     input: ConfigConsumerProps['input'] = {},
   ) => {
-    const { className, addonBefore, addonAfter, size: customizeSize, disabled } = this.props;
+    const {
+      className,
+      addonBefore,
+      addonAfter,
+      size: customizeSize,
+      disabled,
+      htmlSize,
+    } = this.props;
     // Fix https://fb.me/react-unknown-prop
     const otherProps = omit(this.props as InputProps & { inputType: any }, [
       'prefixCls',
@@ -291,6 +299,7 @@ class Input extends React.Component<InputProps, InputState> {
       'size',
       'inputType',
       'bordered',
+      'htmlSize',
     ]);
     return (
       <input
@@ -307,6 +316,7 @@ class Input extends React.Component<InputProps, InputState> {
           },
         )}
         ref={this.saveInput}
+        size={htmlSize}
       />
     );
   };
