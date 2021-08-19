@@ -1367,6 +1367,8 @@ describe('Table.filter', () => {
           {
             ...column,
             filterDropdownVisible: true,
+            filterSearch: true,
+            filterMode: 'tree',
           },
         ],
       }),
@@ -1377,6 +1379,12 @@ describe('Table.filter', () => {
     );
     expect(wrapper.find('.ant-table-filter-dropdown-btns .ant-btn-link').last().text()).toEqual(
       'Reset',
+    );
+    expect(wrapper.find('.ant-table-filter-dropdown-checkall').first().text()).toEqual(
+      'Select all items',
+    );
+    expect(wrapper.find('.ant-input').getDOMNode().getAttribute('placeholder')).toEqual(
+      'Search in filters',
     );
   });
 
@@ -1877,7 +1885,7 @@ describe('Table.filter', () => {
         wrapper.update();
       });
       expect(wrapper.find(Checkbox).length).toBe(1);
-      expect(wrapper.find(Checkbox).text()).toBe('全选');
+      expect(wrapper.find(Checkbox).text()).toBe('Select all items');
       expect(wrapper.find('.ant-tree-checkbox-checked').length).toBe(0);
       wrapper
         .find(Checkbox)
@@ -1911,7 +1919,7 @@ describe('Table.filter', () => {
         wrapper.update();
       });
       expect(wrapper.find(Checkbox).length).toBe(1);
-      expect(wrapper.find(Checkbox).text()).toBe('全选');
+      expect(wrapper.find(Checkbox).text()).toBe('Select all items');
       wrapper.find('.ant-tree-node-content-wrapper').at(0).simulate('click');
       expect(wrapper.find('.ant-tree-checkbox').at(0).hasClass('ant-tree-checkbox-checked')).toBe(
         true,
